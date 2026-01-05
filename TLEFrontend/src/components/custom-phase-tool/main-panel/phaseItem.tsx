@@ -146,7 +146,7 @@ interface ItemProps {
 }
 
 // Memoized component to prevent unnecessary re-renders
-const Item = memo(function Item(props: ItemProps) {
+const PhaseItem = memo(function Item(props: ItemProps) {
   const locale = useContext(LocaleContext);
   const [isActiveLabel, setIsActiveLabel] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
@@ -287,4 +287,4 @@ const Item = memo(function Item(props: ItemProps) {
   );
 });
 
-export default Item;
+export default PhaseItem;

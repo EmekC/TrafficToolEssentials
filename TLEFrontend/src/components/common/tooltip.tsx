@@ -7,6 +7,7 @@
  */
 
 import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 // V257: Container wraps both children and tooltip
@@ -27,7 +28,7 @@ const tooltipBaseStyle: CSSProperties = {
   margin: 0,
   textAlign: 'left',
   zIndex: 9999999,
-  maxWidth: '280rem',
+  maxWidth: '175rem',
   wordWrap: 'break-word',
   pointerEvents: 'none',
 };
@@ -50,22 +51,23 @@ export default function Tooltip(props: {position: "bottom" | "bottom-start" | "r
     if (containerRef.current && !show) {
       const element = containerRef.current;
       const rect = element.getBoundingClientRect();
-      
-      // V253: Calculate position directly, no transform needed
-      if (props.position == "bottom") {
+
+      // Calculate position based on props.position
+      if (props.position === "bottom") {
         // Center below: use rect center, adjust after tooltip renders
         setLeft(rect.left + rect.width / 2);
         setTop(rect.bottom + bottomOffset.marginTop);
-      } else if (props.position == "bottom-start") {
+      } else if (props.position === "bottom-start") {
         setLeft(rect.left);
         setTop(rect.bottom + bottomOffset.marginTop);
-      } else if (props.position == "right-start") {
+      } else if (props.position === "right-start") {
         setLeft(rect.right + rightOffset.marginLeft);
         setTop(rect.top);
-      } else if (props.position == "right") {
+      } else if (props.position === "right") {
         setLeft(rect.right + rightOffset.marginLeft);
         setTop(rect.top + rect.height / 2);
       }
+
       setShow(true);
     }
   }, [containerRef, show, props.position]);
@@ -128,23 +130,27 @@ export default function Tooltip(props: {position: "bottom" | "bottom-start" | "r
     }
   }, [containerRef, show, hideTooltip]);
 
-  // V253: Tooltip is a CHILD of Container with position:fixed
+  // Render tooltip using portal to document.body for proper z-index stacking
+  const tooltipElement = show ? (
+    <div
+      ref={tooltipRef}
+      style={{
+        ...tooltipBaseStyle,
+        left,
+        top,
+        ...props.tooltipStyle
+      }}
+    >
+      {props.tooltip}
+    </div>
+  ) : null;
+
   return (
-    <Container ref={containerRef} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
-      {props.children}
-      {show && (
-        <div 
-          ref={tooltipRef} 
-          style={{
-            ...tooltipBaseStyle,
-            left,
-            top,
-            ...props.tooltipStyle
-          }}
-        >
-          {props.tooltip}
-        </div>
-      )}
-    </Container>
+    <>
+      <Container ref={containerRef} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
+        {props.children}
+      </Container>
+      {tooltipElement && createPortal(tooltipElement, document.body)}
+    </>
   );
 }

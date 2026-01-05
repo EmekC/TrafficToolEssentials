@@ -14,10 +14,10 @@ import TooltipContainer from "@/components/common/tooltip-container";
 import Divider from "@/components/main-panel/items/divider";
 import Row from "@/components/main-panel/items/row";
 
-import Item from "./item";
 // ManualControlPanel removed - now only used internally by Green Wave sync
 import SubPanel from "./sub-panel";
 import SyncSection from "./SyncSection";
+import PhaseItem from "./phaseItem";
 
 // === STATIC STYLES ONLY ===
 const Container = styled.div`
@@ -30,8 +30,8 @@ const Container = styled.div`
 `;
 
 const LeftPanelContainer = styled.div`
-  width: 20em;
-  max-width: 20em;
+  width: 25em;
+  max-width: 25em;
   background-color: var(--panelColorNormal);
   backdrop-filter: var(--panelBlur);
   color: var(--textColor);
@@ -432,7 +432,7 @@ export default function MainPanel(props: {
           <Scrollable style={{flex: 1}} contentStyle={ItemContainerStyle}>
             {props.items.map((item, idx) => 
               item.itemType == "customPhase" && (
-                <Item 
+                <PhaseItem 
                   key={idx}
                   data={item}
                   isSelected={selectedIndices.includes(item.index)}

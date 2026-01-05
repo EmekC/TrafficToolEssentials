@@ -45,7 +45,7 @@ export default function ItemDivider(props: {index: number, linked: boolean}) {
   return (
     <Container>
       <Divider invisible={props.linked} style={{borderTopRightRadius: 0, borderBottomRightRadius: 0}} />
-      <Tooltip position="right" tooltip={<LinkPhase link={!props.linked} />}>
+      <Tooltip position="bottom" tooltip={<LinkPhase link={!props.linked} />}>
         <IconContainer onClick={clickHandler}>
           {props.linked && <LinkVariantOff style={IconStyle} />}
           {!props.linked && <LinkVariant style={IconStyle} />}

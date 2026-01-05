@@ -5,7 +5,10 @@ const { CSSPresencePlugin } = require("./tools/css-presence");
 const TerserPlugin = require("terser-webpack-plugin");
 const gray = (text) => `\x1b[90m${text}\x1b[0m`;
 
-const OUTPUT_DIR = "./dist/";
+// Changed to get hot reloads for ui changes inside CS2
+const OUTPUT_DIR = path.join(process.env.USERPROFILE, "AppData/LocalLow/Colossal Order/Cities Skylines II/Mods/C2VM.TrafficToolEssentials");
+// the original line:
+// const OUTPUT_DIR = "./dist/";
 
 const banner = `
  * Cities: Skylines II UI Module

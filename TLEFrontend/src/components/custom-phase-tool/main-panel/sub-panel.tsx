@@ -26,7 +26,7 @@ const DimLabel = styled.div`
 `;
 
 const TooltipText = styled.div`
-  max-width: 250rem;
+  max-width: 175rem;
   line-height: 1.4;
 `;
 

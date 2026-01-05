@@ -40,7 +40,7 @@ const Arrow = styled.div<{isOpen: boolean}>`
 
 const Content = styled.div<{isOpen: boolean}>`
   max-height: ${props => props.isOpen ? '5000rem' : '0'};
-  overflow: hidden;
+  overflow: ${props => props.isOpen ? 'visible' : 'hidden'};
   transition: max-height 0.3s ease;
 `;
 

@@ -30,8 +30,8 @@ const Container = styled.div`
 `;
 
 const LeftPanelContainer = styled.div`
-  width: 15em;
-  max-width: 15em;
+  width: 20em;
+  max-width: 20em;
   background-color: var(--panelColorNormal);
   backdrop-filter: var(--panelBlur);
   color: var(--textColor);
@@ -41,8 +41,8 @@ const LeftPanelContainer = styled.div`
 `;
 
 const RightPanelContainer = styled.div`
-  width: 17em;
-  max-width: 17em;
+  width: 30em;
+  max-width: 30em;
   background-color: var(--sectionBackgroundColor);
   backdrop-filter: var(--panelBlur);
   flex: 1;
